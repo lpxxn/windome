@@ -2,6 +2,7 @@
 
 #include <QPainter>
 #include <QRect>
+#include <QDebug>
 
 
 TetrixBoard::TetrixBoard(QWidget *parent)
@@ -37,10 +38,13 @@ void TetrixBoard::drawSquare(QPainter &painter, int x, int y, QColor color)
                      color);
 
     ///
-    painter.setPen(Qt::blue);
+    //painter.setPen(color.light());
+    painter.setPen(Qt::green);
     painter.drawLine(x, y + squareHeight() - 1, x, y);
     painter.drawLine(x, y, x + squareWidth() - 1, y);
 
+    //painter.setPen(color.dark());
+    painter.setPen(Qt::blue);
     painter.drawLine(x + 1, y + squareHeight() - 1,
                      x + squareWidth() - 1,
                      y + squareHeight() - 1);
@@ -49,8 +53,11 @@ void TetrixBoard::drawSquare(QPainter &painter, int x, int y, QColor color)
                       x + squareWidth() - 1, y + 1);
 }
 
+int paintInt = 0;
 void TetrixBoard::paintEvent(QPaintEvent *event)
 {
+    qDebug() << " enter Paint count : " << ++paintInt;
+
     QFrame::paintEvent(event);
 
     QPainter painter(this);
@@ -69,7 +76,7 @@ void TetrixBoard::paintEvent(QPaintEvent *event)
         0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
     };
 
-    int coordsTable[4][2] = {{ 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 }};
+
 
     QColor color = colorTable[int(1)];
 
@@ -88,12 +95,15 @@ void TetrixBoard::paintEvent(QPaintEvent *event)
 //    painter.drawLine( x + squareWidth() - 1, y + squareHeight() - 1,
 //                      x + squareWidth() - 1, y + 1);
 
+    int coordsTable[4][2] = {{ 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 }};
     int curX = 4;
     int curY = 19;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 1; i++) {
         int x = curX + coordsTable[i][0]; // x
         int y = curY - coordsTable[i][1]; // y
 
+        qDebug() << "rect.left  : " <<rect.left() << "  x  :" << x << "  squareWidth  :" << squareWidth()
+                 << "  rect.left() + x * squareWidth()  :" << rect.left() + x * squareWidth();
         drawSquare(painter, rect.left() + x * squareWidth(), boardTop + (BoardHeight - y -1) * squareHeight(), color);
     }
 }
