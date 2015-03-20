@@ -34,6 +34,7 @@ QSize TetrixBoard::minimumSizeHint() const
 
 void TetrixBoard::drawSquare(QPainter &painter, int x, int y, QColor color)
 {
+    qDebug() << " draw Square Function  x: " << x << "  y  : " << y;
     painter.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2,
                      color);
 
@@ -95,10 +96,11 @@ void TetrixBoard::paintEvent(QPaintEvent *event)
 //    painter.drawLine( x + squareWidth() - 1, y + squareHeight() - 1,
 //                      x + squareWidth() - 1, y + 1);
 
-    int coordsTable[4][2] = {{ 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 }};
-    int curX = 4;
-    int curY = 19;
-    for (int i = 0; i < 1; i++) {
+    int coordsTable[4][2] = {{0, -1}, {0, 0}, {-1, 0}, {-1, 1}};
+    int coordsTable2[4][2] = {{0, -1}, {0, 0}, {1, 0}, {1, 1}};
+    int curX = 5;
+    int curY = 20;
+    for (int i = 0; i < 4; i++) {
         int x = curX + coordsTable[i][0]; // x
         int y = curY - coordsTable[i][1]; // y
 
