@@ -29,8 +29,7 @@ private:
                          return h / BoardHeight; }
 
 private:
-    enum { BoardWidth = 10, BoardHeight = 22 };
-
+    enum { BoardWidth = 11, BoardHeight = 22 };
 
 
 };
